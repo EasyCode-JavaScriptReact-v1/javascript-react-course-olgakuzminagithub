@@ -10,7 +10,9 @@ let howMuch = 'Сколько';
 let sentence = 'нужно программистов чтобы сделать проект ?';
 
 let task1 = howMuch + ' ' + sentence + ' ' + numbers[1] +  ', ' + numbers[0] + ', ' + team;
+let task1Var2 = `${howMuch} ${sentence} ${numbers[1]} ${numbers[0]} ${team}`;
 console.log(task1);
+console.log(task1Var2);
 
 /*
  2. Составьте предложение из представленного массива
@@ -34,7 +36,12 @@ let array = [
 
 let homeSentence = array[4] + ', ' + array[2] + ', ' + array[6] + array[8] + array[7]
     + '. \n' + array[0] + ' '+ array[8] + ' '+ array[1] + array[5];
+
+let homeSentenceVar2 = `${array[4]}, ${array[2]}, ${array[6]}${array[8]}${array[7]}
+${array[0]} ${array[8]} ${array[1]}${array[5]}`;
+
 console.log(homeSentence);
+console.log(homeSentenceVar2);
 
 /*
  3. Добавьте свойста 4 новых свойства в объект используя
@@ -69,8 +76,7 @@ let x =
     `${frameworks[frameworks.length - 1]}`;
 
 
-let  y = `google  released new version  ${frameworks[1] + Math.floor(frameworks[0])}
-But real speed is ${frameworks[frameworks.length - 1]}`;
+let  y = `google  released new version  ${frameworks[1]} ${Math.floor(frameworks[0])} But real speed is ${frameworks[frameworks.length - 1]}`;
 
 console.log(x);
 console.log(y);
