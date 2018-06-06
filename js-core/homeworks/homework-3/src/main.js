@@ -124,27 +124,43 @@ console.log(myName);
    Если передаваемое число не кратно 3 или 5, то вернуть указанный параметр
 */
 
+// function fizzBuzz(num) {
+//     if (!(num % 3)) {
+//         if (! (num % 5)) {
+//             console.log('FizzBuzz')
+//         } else {
+//             console.log('Fizz')
+//         }
+//     } else if (!(num % 5)) {
+//         console.log('Buzz')
+//     } else {
+//         console.log(num)
+//     }
+// }
+
 function fizzBuzz(num) {
-    if (!(num % 3)) {
-        if (! (num % 5)) {
-            console.log('FizzBuzz')
+    if (num % 3) {
+        if (num % 5) {
+            return num;
         } else {
-            console.log('Fizz')
+            return 'Buzz';
         }
-    } else if (!(num % 5)) {
-        console.log('Buzz')
     } else {
-        console.log(num)
+        if (num % 5) {
+            return 'Fizz';
+        } else {
+            return 'FizzBuzz';
+        }
     }
 }
 
-fizzBuzz(1); // 1
-fizzBuzz(2); // 2
-fizzBuzz(3); // 'Fizz'
-fizzBuzz(5); // 'Buzz'
+console.log(fizzBuzz(1)); // 1
+console.log(fizzBuzz(2)); // 2
+console.log(fizzBuzz(3)); // 'Fizz'
+console.log(fizzBuzz(5)); // 'Buzz'
 // ...
-fizzBuzz(15); // 'FizzBuzz'
-fizzBuzz(21); // 'Fizz'
+console.log(fizzBuzz(15)); // 'FizzBuzz'
+console.log(fizzBuzz(21)); // 'Fizz'
 
 /* -> @@ SUPER 2
 Напишите функцию, которая будет принимать 4 аргумента,
@@ -152,10 +168,13 @@ fizzBuzz(21); // 'Fizz'
 Добавьте первые 3 аргумента в массив и вызовите переданную функцию с данным массивом
 */
 
-
 function super2(arg1, arg2, arg3, callback) {
-
+    var myArray = [arg1, arg2, arg3];
+    console.log(callback(myArray));
+}
+function myFun(something) {
+    x = typeof something;
+    return x;
 }
 
-
-
+super2( 1, 2, ' привет', myFun);
