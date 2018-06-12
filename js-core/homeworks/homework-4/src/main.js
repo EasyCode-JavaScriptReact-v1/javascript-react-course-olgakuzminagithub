@@ -47,18 +47,15 @@ console.log(numbersBetween(10, 12));
 
 function FizzBuzz(number) {
     let str = '';
+    let res;
     if (!(number % 3)) {
         str += 'Fizz';
     }
     if (!(number % 5)) {
         str += 'Buzz';
     }
-    if (str) {
-        return str;
-    } else {
-        return number;
-    }
-
+    str ? res = str : res = number;
+    return res;
 }
 
 
@@ -105,12 +102,8 @@ let array = Array.from({length: 35},
 
 function solution(arr) {
     for (let i = 0; i < arr.length; i ++) {
-        let counter = 0;
-        for (let key in arr[i]) {
-            if (key === 'age' && !(arr[i][key])) {
-                arr[i]['unknownAge'] = true
-            }
-            counter ++;
+        if (!(arr[i].age)) {
+            arr[i]['unknownAge'] = true;
         }
     }
     return arr;
@@ -123,13 +116,9 @@ function testUnknownAge(arr) {
     let newArr = [];
     let j = 0;
     for (let i = 0; i < arr.length; i ++) {
-        let counter = 0;
-        for (let key in arr[i]) {
-            if (key === 'unknownAge') {
-                newArr[j] = arr[i];
-                j ++;
-            }
-            counter ++;
+        if (arr[i].unknownAge) {
+            newArr[j] = arr[i];
+            j ++;
         }
     }
     return newArr;
