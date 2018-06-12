@@ -47,15 +47,13 @@ console.log(numbersBetween(10, 12));
 
 function FizzBuzz(number) {
     let str = '';
-    let res;
     if (!(number % 3)) {
         str += 'Fizz';
     }
     if (!(number % 5)) {
         str += 'Buzz';
     }
-    str ? res = str : res = number;
-    return res;
+    return str ? str : number;
 }
 
 
