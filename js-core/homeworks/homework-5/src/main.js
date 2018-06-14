@@ -37,14 +37,18 @@ let arr2 = [
 ];
 
 function moveZeroToEnd(arr) {
-    for ( let i = 0; i < arr.length; i ++) {
-        let elem = arr[i];
-        if (elem === 0) {
-            arr.splice(i, 1);
-            arr.push(elem);
+    function oneIteretion(arr) {
+        for ( let i = 0; i < arr.length; i ++) {
+            let elem = arr[i];
+            if (elem === 0) {
+                arr.splice(i, 1);
+                arr.push(elem);
+            }
         }
+        return arr;
     }
-    return arr;
+    let newArr = oneIteretion(arr);
+    return oneIteretion(newArr);
 }
 
 
@@ -61,20 +65,11 @@ console.log(moveZeroToEnd(arr2));
 
 
 function sumTwoMinimalNumber(arr) {
-    function searcheMinimalNumber(arr) {
-        let minElem = arr[0];
-        for (let i = 0; i < arr.length; i ++) {
-            if (arr[i] < minElem) {
-                minElem = arr[i];
-            }
-        }
-        return minElem;
-    }
-    let minimalNumber = searcheMinimalNumber(arr);
+    let minimalNumber = Math.min.apply(null, arr);
     let sum =+ minimalNumber;
     let indexMinimalNumber = arr.indexOf(minimalNumber);
     arr.splice(indexMinimalNumber, 1);
-    minimalNumber = searcheMinimalNumber(arr);
+    minimalNumber = Math.min.apply(null, arr);
     sum = sum + minimalNumber;
     return sum;
 }
@@ -130,7 +125,36 @@ capMe(['KARLY', 'DANIEL', 'KELSEY']);
   [0,16,24,32] => 8
  */
 
+/* Возможно сильнограмоздкое решениеБ но проще не получилось */
+
+function easyRandom(arr) {
+    let number;
+    let x = arr.length;
+    let needDif = (arr[x-1] - arr[0])/x;
+    for (let i = 0; i < arr.length; i ++) {
+        let dif = arr[i+1] - arr[i];
+        if (dif - needDif) {
+            number = arr[i] + needDif;
+        }
+
+    }
+    return number;
+}
+
 function random(arr) {
+    let needNumber;
+    let dif = [];
+    for (let i = 0; i < arr.length-1; i ++) {
+        dif[i] = arr[i+1] - arr[i];
+    }
+    let maxElem = Math.max.apply(null, dif);
+    let minElem = Math.min.apply(null, dif);
+    if (minElem === maxElem) {
+        needNumber = arr[0] - minElem;
+
+    } else needNumber = easyRandom(arr);
+    console.log(needNumber);
+
 }
 
 random([1, 3, 5, 9]);
@@ -158,13 +182,11 @@ function openBraces(arr) {
           arr.splice(i,1);
           for (let x = 0; x < elem.length; x++) {
               arr.splice(i+x, 0, elem[x])
-
           }
         }
     }
     return arr;
 }
-
 
 console.log(openBraces([[1,2],[3,[4]],5, 10]));
 console.log(openBraces([25,10,[10,[15]]]));
