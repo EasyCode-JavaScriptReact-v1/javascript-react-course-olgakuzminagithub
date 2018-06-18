@@ -487,20 +487,52 @@ console.log(createHashTags(listOfCompanys));
  * */
 
 function uniqueElements(arr) {
-
+    let newArr = [];
+    newArr.push(arr[0]);
+    arr.forEach(function (item) {
+        let elem = item;
+        function compare(item) {
+            return elem !== item;
+        }
+        if (newArr.every(compare)) {
+            newArr.push(elem)
+        }
+    });
+    return newArr;
 }
 
 //
 let notUniqArray = [1, 1, 2, 2, 2, 5, 10, 25, 30, 5, 1, 0, 22, 3, 10, 3];
 //
 console.log(uniqueElements(notUniqArray)); //1,2,5,10,25,30,0,22,3,
-// console.log(uniqueElements([1, 1, 2, 3, 3])); // 1,2,3
+console.log(uniqueElements([1, 1, 2, 3, 3])); // 1,2,3
 
 /*
 *
 * super2
 *
-* implement array method filter function
+Нативная функция для метода filter
 *
 *
 * */
+
+let arr = [1, -1, 2, -2, 3];
+
+let positiveArr = arr.filter(function(number) {
+    return number > 0;
+});
+
+console.log(positiveArr);
+
+function nativPositivArr(arr) {
+    let newArr = [];
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] > 0) {
+            newArr.push(arr[i]);
+        }
+    }
+    return newArr;
+}
+
+let positiveArr2 = nativPositivArr(arr);
+console.log(positiveArr2);
