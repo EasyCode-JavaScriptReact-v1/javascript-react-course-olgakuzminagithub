@@ -141,6 +141,7 @@ function easyRandom(arr) {
     return number;
 }
 
+
 function random(arr) {
     let needNumber;
     let dif = [];
@@ -161,6 +162,7 @@ random([1, 3, 5, 9]);
 random([0, 8, 16, 32]);
 random([0, 16, 24, 32]);
 random([4, 6, 8, 10]);
+
 
 /*
  Задача с собеседований*
