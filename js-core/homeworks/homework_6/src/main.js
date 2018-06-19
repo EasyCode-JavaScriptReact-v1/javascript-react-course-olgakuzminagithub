@@ -323,15 +323,18 @@ let javaScript = {
     html: 'JavaScript',
 };
 
+
+/* решение с помощью reduce - как по мне так оно более громоздкое */
 function countLetterA(str) {
     const myArray = str.split('');
-    let sum = 0;
-    myArray.forEach(function(item) {
+    let counter = myArray.reduce(function (sum, item) {
         if (item === 'a') {
             sum += 1;
         }
-    });
-    return sum;
+        return sum;
+
+    }, 0);
+    return counter;
 
 }
 
@@ -371,29 +374,26 @@ console.log(reverseEachWord('The Document Object Model (DOM) is a programming in
  * переворачиваются в обратном порядке
  * */
 
+/* упростила функцию */
+
 function reverseEachWord2(str, param) {
+    let array = str.split(' ');
+    let flipArray = array.map( function invert(item) {
+        let newItem = item.split('').reverse().join('');
+        return newItem;
+    });
     if (param === true) {
-        const myArray = str.split(' ');
-        const newArray = myArray.map( function invert(item) {
-            const newItem = item.split('').reverse().join('');
-            return newItem;
-        });
-        const newStr = newArray.reverse().join(' ');
-        return newStr;
+        let flipStr = flipArray.reverse().join(' ');
+        return flipStr;
     } else {
-        const myArray = str.split(' ');
-        const newArray = myArray.map( function invert(item) {
-            const newItem = item.split('').reverse().join('');
-            return newItem;
-        });
-        const newStr = newArray.join(' ');
-        return newStr;
+        let flipStr = flipArray.join(' ');
+        return flipStr;
     }
 }
 
 console.log(reverseEachWord2('You don\'t have to do anything special to begin using the DOM. Different browsers have different implementations of the DOM', true));
 // MOD eht fo snoitatnemelpmi tnereffid evah sresworb tnereffiD .MOD eht gnisu nigeb ot laiceps gnihtyna od ot evah t'nod uoY
-console.log(reverseEachWord('The Document Object Model (DOM) is a programming interface for HTML and XML documents', true));
+console.log(reverseEachWord2('The Document Object Model (DOM) is a programming interface for HTML and XML documents', true));
 // stnemucod LMX dna LMTH rof ecafretni gnimmargorp a si )MOD( ledoM tcejbO tnemucoD ehT
 
 console.log(reverseEachWord2('Hi my Name is', false));
@@ -426,8 +426,28 @@ function wordCounter(sentence) {
     return object;
 }
 
-console.log(
-    wordCounter('Both Java and Java Script is programming and programming OOPBased Language'),
+/* Второй способ с одним циклом */
+
+function wordCounter2(sentence) {
+    let myArray = sentence.split(' ');
+    let counter = 1;
+    let object = myArray.reduce(function (object, item) {
+        if (object[item]) {
+            object[item] += 1;
+        } else {
+            object[item] = counter;
+        }
+        return object;
+    }, {});
+    return object;
+
+}
+console.log( 'Первый способ',
+wordCounter('Both Java and Java Script is programming and programming OOPBased Language'),
+);
+
+console.log( 'Второй способ',
+    wordCounter2('Both Java and Java Script is programming and programming OOPBased Language'),
 );
 // // /*
 //  {
@@ -443,6 +463,7 @@ console.log(
 
 
 console.log(wordCounter('asd qwe asd'));
+console.log('Второй способ', wordCounter2('asd qwe asd'));
 /*
  {
  asd:2
@@ -451,6 +472,7 @@ console.log(wordCounter('asd qwe asd'));
  * */
 
 console.log(wordCounter('url http url www url http'));
+console.log('второй способ', wordCounter2('url http url www url http'));
 
 /*
  {
@@ -466,11 +488,13 @@ console.log(wordCounter('url http url www url http'));
  // верните объект, у которого ключ это _id, а значение Company
  */
 
+/* Переписала функцию с помощью reduce */
+
 function createHashTags(arr) {
-    let object = {};
-    arr.forEach(function(item) {
+    let object = arr.reduce(function(object, item) {
         object[item._id] = item.company;
-    });
+        return object;
+    }, {});
     return object;
 }
 
@@ -501,6 +525,7 @@ function uniqueElements(arr) {
     return newArr;
 }
 
+
 //
 let notUniqArray = [1, 1, 2, 2, 2, 5, 10, 25, 30, 5, 1, 0, 22, 3, 10, 3];
 //
@@ -516,23 +541,4 @@ console.log(uniqueElements([1, 1, 2, 3, 3])); // 1,2,3
 *
 * */
 
-let arr = [1, -1, 2, -2, 3];
 
-let positiveArr = arr.filter(function(number) {
-    return number > 0;
-});
-
-console.log(positiveArr);
-
-function nativPositivArr(arr) {
-    let newArr = [];
-    for (let i = 0; i < arr.length; i++) {
-        if (arr[i] > 0) {
-            newArr.push(arr[i]);
-        }
-    }
-    return newArr;
-}
-
-let positiveArr2 = nativPositivArr(arr);
-console.log(positiveArr2);
