@@ -151,3 +151,105 @@ army[1]();
 army[2]();
 army[3]();
 army[9]();
+
+'use strict';
+
+/*
+ *
+ * TASK 1
+ *
+ * Напишите функцию которая будет вызываться трижды и складывать
+ * все передаваемые ей числа
+ *
+ * */
+
+function add(x) {
+    let sum = 0;
+    return function (y) {
+        return function (z) {
+            return sum = x + y + z;
+        }
+    }
+}
+
+console.log('сумма:', add(1)(2)(3)); // 6
+console.log('сумма:', add(10)(5)(15)); // 30
+
+/*
+ *
+ * TASK 2
+ *
+ * Напишите функцию которая возвращает объект и одно из свойств объекта
+ * это функция
+ * После каждого нового вызова метода объекта(функции объекта) в консоле должно отображаться
+ * число на 1 больше чем предыдущее
+ * ---------------------------------------
+ * так же у объекта должен быть метод обнуления счетчика
+ * Узнать счетчик напрямую в объекте, нельзя
+ *
+ * */
+
+function patternModule() {
+    let object = {};
+    let counter = 0;
+    function method() {
+        return counter +=1;
+    }
+    function clear() {
+        return counter = 0
+    }
+    object.method = method;
+    object.clear = clear;
+    return object;
+
+}
+
+// patternModule
+
+let test = patternModule(); // 0
+console.log(test.method()); //1
+console.log(test.method()); //2
+console.log(test.method()); //3
+console.log(test.clear()); //0
+/*
+ * TASK 1
+ *
+ * Напишите функцию которая принимает 4 аргумента:
+ *
+ * -  Объект
+ * -  Имя свойства с которым связывается метод
+ * -  Сколько раз можно вызвать метод *
+ * -  Объявление привязываемого метода ( функция )
+ *
+ *  При вызове метода отобразите сумму передаваемых
+ *  параметров.
+ *  Когда заканчивается счетчик, отображается ошибка
+ *
+ * */
+
+let jun = {};
+
+function methodCounter(obj, name, num, fn) {
+    let counter = num;
+    obj[name] = fn;
+    return function () {
+        if (counter === 0) { // почему-то не срабатывает это условие, в debugger counter = 0
+            return 'ERROR ! add more methods';
+        } else {
+            counter --;
+            return obj;
+        }
+    }
+}
+
+methodCounter(jun, 'logger', 0, function (args) {
+    return args.reduce(function(sum, current) {
+        return sum + current;
+    }, 0);
+});
+
+console.log(jun.logger([1, 2, 3, 4])); // 2, 10
+console.log(jun.logger([5, 5, 5, 5])); // 1, 20
+console.log(jun.logger([5, 5])); // ERROR ! add more methods
+
+// jun.addCounter(10, methodName);
