@@ -233,28 +233,29 @@ let jun = {};
 
 function methodCounter(obj, name, num, fn) {
     let count = num;
-    function checkNum() {
+    function checkNum(a, b, c, d) {
         if (count === 0) {
-            return function() {
-                return "'ERROR ! add more methods';"
-            }
-        } else {
-            count--;
-            return fn;
+            return "'ERROR ! add more methods';"
 
         }
+        count--;
+        const num1 = a || 0;
+        const num2 = b || 0;
+        const num3 = c || 0;
+        const num4 = d || 0;
+
+        return fn(num1, num2, num3, num4);
+
     }
     obj[name] = checkNum;
 }
 
-methodCounter(jun, 'logger', 2, function (args) {
-    return args.reduce(function(sum, current) {
-        return sum + current;
-    }, 0);
+methodCounter(jun, 'logger', 2, function (a, b, c, d) {
+    return num1 + num2 + num3 + num4;
 });
 
-console.log(jun.logger()([1, 2, 3, 4])); // 2, 10
-console.log(jun.logger()([5, 5, 5, 5])); // 1, 20
-console.log(jun.logger()([5, 5])); // ERROR ! add more methods
+console.log(jun.logger(1, 2, 3, 4)); // 2, 10
+console.log(jun.logger(5, 5, 5, 5)); // 1, 20
+console.log(jun.logger(5, 5)); // ERROR ! add more methods
 
 // jun.addCounter(10, methodName);
