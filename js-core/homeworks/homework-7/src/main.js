@@ -229,27 +229,32 @@ console.log(test.clear()); //0
 
 let jun = {};
 
+/* Я тут накостыляла, метод у меня не получился((, только метод котрый вызывает функцию */
+
 function methodCounter(obj, name, num, fn) {
-    let counter = num;
-    obj[name] = fn;
-    return function () {
-        if (counter === 0) { // почему-то не срабатывает это условие, в debugger counter = 0
-            return 'ERROR ! add more methods';
+    let count = num;
+    function checkNum() {
+        if (count === 0) {
+            return function() {
+                return "'ERROR ! add more methods';"
+            }
         } else {
-            counter --;
-            return obj;
+            count--;
+            return fn;
+
         }
     }
+    obj[name] = checkNum;
 }
 
-methodCounter(jun, 'logger', 0, function (args) {
+methodCounter(jun, 'logger', 2, function (args) {
     return args.reduce(function(sum, current) {
         return sum + current;
     }, 0);
 });
 
-console.log(jun.logger([1, 2, 3, 4])); // 2, 10
-console.log(jun.logger([5, 5, 5, 5])); // 1, 20
-console.log(jun.logger([5, 5])); // ERROR ! add more methods
+console.log(jun.logger()([1, 2, 3, 4])); // 2, 10
+console.log(jun.logger()([5, 5, 5, 5])); // 1, 20
+console.log(jun.logger()([5, 5])); // ERROR ! add more methods
 
 // jun.addCounter(10, methodName);
