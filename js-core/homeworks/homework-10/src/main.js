@@ -54,11 +54,11 @@ console.log(createDIV); // <div></div>
 var ezjQuery = {
     str: ' ',
     add: function(teg, str) {
-        let middle = this.str.length/2;
+        let point = this.str.indexOf('</');
         if (str) {
-            this.str = this.str.substring(0,middle-2) + `${str}` + this.str.substring(middle-2, middle*2);
+            this.str = this.str.substring(0,point) + `${str}` + this.str.substring(point);
         } else {
-            this.str = this.str.substring(0,middle-1) + `<${teg}></${teg}>` + this.str.substring(middle-1, middle*2);
+            this.str = this.str.substring(0,point) + `<${teg}></${teg}>` + this.str.substring(point);
         }
         return this;
     },
@@ -68,7 +68,7 @@ var ezjQuery = {
         return finishStr;
     }
 };
-ezjQuery.add('body').add('div').add('h1');
+ezjQuery.add('body').add('div').add('ul').add('li').add('a');
 console.log(ezjQuery.render()); // <body></body><div></div><h1></h1>
 
 /*
