@@ -63,15 +63,13 @@ var ezjQuery = {
         return this;
     },
     render: function() {
-        return this.str;
-    },
-    clear: function () {
+        let finishStr = this.str;
         this.str = ' ';
+        return finishStr;
     }
 };
 ezjQuery.add('body').add('div').add('h1');
 console.log(ezjQuery.render()); // <body></body><div></div><h1></h1>
-ezjQuery.clear();
 
 /*
  *
@@ -90,7 +88,7 @@ ezjQuery.clear();
 // example
 var helloList = ezjQuery.add('body').add('div').add('ul').add('li', 'Hello').render();
 console.log(helloList); // <body><div><ul><li>Hello</li></ul></div></body>
-ezjQuery.clear();
+
 
 var bodyDiv = ezjQuery.add('body').add('div').render();
 console.log(bodyDiv); //<body><div></div></body>
