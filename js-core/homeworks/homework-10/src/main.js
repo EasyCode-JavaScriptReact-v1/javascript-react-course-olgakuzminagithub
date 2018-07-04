@@ -52,24 +52,31 @@ console.log(createDIV); // <div></div>
 
 
 var ezjQuery = {
-    str: ' ',
-    add: function(teg, str) {
-        let point = this.str.indexOf('</');
-        if (str) {
-            this.str = this.str.substring(0,point) + `${str}` + this.str.substring(point);
-        } else {
-            this.str = this.str.substring(0,point) + `<${teg}></${teg}>` + this.str.substring(point);
+    tags: [],
+    str: '',
+    add: function(tag, info) {
+        this.tags.push(tag);
+        if (info) {
+            this.str = info;
         }
         return this;
     },
     render: function() {
-        let finishStr = this.str;
-        this.str = ' ';
-        return finishStr;
+        let line = '';
+        for (let i = 0; i < this.tags.length; i ++) {
+            line += `<${this.tags[i]}>`
+        }
+        line += this.str;
+        for (let i = this.tags.length-1; i >= 0; i--) {
+            line += `</${this.tags[i]}>`
+        }
+        this.tags = [];
+        this.str = '';
+        return line;
     }
 };
-ezjQuery.add('body').add('div').add('ul').add('li').add('a');
-console.log(ezjQuery.render()); // <body></body><div></div><h1></h1>
+let test = ezjQuery.add('body').add('div').add('ul').add('li').add('a').render();
+console.log(test); // <body></body><div></div><h1></h1>
 
 /*
  *
