@@ -24,11 +24,10 @@
 
 
 var user  = {
-    userName: 'olga'
+
 };
 
 var admin = {
-    __proto__: user,
     verification: true,
     adminEmail: 'mymail2@gmail.com'
 };
@@ -44,11 +43,39 @@ var guest = {
     }
 };
 
-user.adminEmail = admin.adminEmail;
-admin.databasePassword = database.databasePassword;
+user.__proto__ = admin;
+admin.__proto__ = database;
 
 
 console.log('Пользователь:', user);
 console.log('Админ:', admin);
 guest.checkIn();
 console.log('База данных:', database);
+
+
+/* Создайте функцию конструктор.
+У данной функции должны быть методы:
+-Преобразование телефонного номера из формата 0993378130 в (099) 33-78-130
+-Проверка, что телефонный номер содержит только числа
+-Добавление пользователей в справочник
+-Удаление пользователя по имени, фамилии
+-Поиск пользователей по имени - отображает всех пользователей с одинаковым именем
+-Изменение имени, фамилии, телефонного номера у выбраного пользователя ( здесь должно быть реализовано через this )
+-Сортировка пользователей по номеру телефона, фамилии, имени и тд, по любому из свойств пользователя
+-Фильтр по указанному свойству
+ */
+
+function PhoneApp() {
+    this.dataBase = [
+        {id:1, name:'Vasya', phone:'qweqwe'}
+    ]
+}
+
+PhoneApp.prototype.editUser = function(id, options) {
+    /*
+     options.name
+     options.
+    */
+};
+
+const myApp = new PhoneApp();
