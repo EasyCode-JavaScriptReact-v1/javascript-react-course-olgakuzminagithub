@@ -47,7 +47,7 @@ class Carousel {
         this.nav = element.nav,
         this.timer = element.timer
     }
-    start () {
+    start() {
         /*Объявляем перменные */
         let carousel =  document.querySelector(this.elementToApply);
         let prev = carousel.querySelector('.prev');
@@ -167,11 +167,13 @@ class Carousel {
             }, this.timer);
         }
     }
+    static initialize(properties) {
+        var myInitializedCarousel =  new Carousel(properties);
+        myInitializedCarousel.start();
+    }
 }
 
-/*Не поянла с методм initialize, поэтому просто создала элемент класса*/
-
-let carousel  = new Carousel({
+Carousel.initialize({
     elementToApply: '.carousel',
     widthImg: 1170,
     transition: 1,
@@ -180,12 +182,36 @@ let carousel  = new Carousel({
     timer: 0
 });
 
-carousel.start();
 
-// var myInitializedCarousel = Carousel.initialize({
-//     elementToApply: '.carousel',
-//     infinity: true,
-// });
+/*
+* TASK 2
+* Сделайте класс, который будет иметь метод topStyle
+* метод topStyle принимает объект с CSS стилями и добавляет в <head>
+*   новый элемент с данными стилями
+*
+*
+* */
+// .topStyle('fetch', {backgroundColor:'blue'})
+/*
+*
+* <style>.fetch {
+* background-color
+* */
+
+/* Не получилось */
+//
+// class Style {
+//     topStyle (className, yourStyle) {
+//        document.head.innerHTML =
+//            `<style>
+//             .${className} {
+//               ${yourStyle}
+//             }
+//             </style>`
+//     }
+// }
+// const newStyle  = new Style();
+// newStyle.topStyle('fetch', {backgroundColor:'blue'});
 
 
 
