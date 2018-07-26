@@ -27,10 +27,8 @@ class PhoneApp {
     }
     /* 1. Преобразование телефонного номера из формата 0993378130 в (099) 33-78-130 */
     conversionPhoneFormat (phoneNumber) {
-        let str = '';
-        str += phoneNumber;
-        return "(" + str.substring(0,3) + ")" + " " + str.substring(3,5) + "-" +
-            str.substring(5,7) + "-" + str.substring(7,10);
+        return phoneNumber.replace(/^([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{3})$/, '($1) $2-$3-$4');
+
     }
     /* 2. Проверка, что телефонный номер содержит только числа */
     chekNumber (phoneNumber) {
@@ -43,22 +41,15 @@ class PhoneApp {
     };
     /* 4. Удаление пользователя по имени, фамилии */
     deleteUser (name) {
-        for (let i = 0; i < this.dataBase.length; i++) {
-            let elem = this.dataBase[i];
-            if (elem.firstName === name || elem.secondName === name) {
-                this.dataBase.splice(i, 1);
-            }
-        }
+        this.dataBase = this.dataBase.filter(function (elem) {
+            return elem.firstName !== name;
+        });
     };
     /* 5. Поиск пользователей по имени - отображает всех пользователей с одинаковым именем */
     searchByName (name) {
-        let sortArray = [];
-        this.dataBase.forEach(function (elem) {
-            if (elem.firstName === name) {
-                sortArray.push(elem)
-            }
+        return this.dataBase.filter(function (elem) {
+            return elem.firstName === name;
         });
-        return sortArray;
     };
     /* 6. Изменение имени, фамилии, телефонного номера у выбраного пользователя*/
     changeUser (id, newFirstName, newSecondName, newPhoneNumber) {
