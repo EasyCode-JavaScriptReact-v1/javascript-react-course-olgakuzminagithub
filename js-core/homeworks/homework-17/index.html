@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homework-17</title>
+    <style>
+        .container {
+            width: 90%;
+            max-width: 1170px;
+            margin: auto;
+        }
+        .carousel {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+
+        }
+        .arrow {
+            width: 20px;
+            padding: 5px;
+            border: 1px solid #000;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .carousel .carousel-images {
+            width: 1000px;
+            height: 600px;
+            overflow: hidden;
+        }
+        .carousel .carousel-images ul {
+            width: 9999px;
+            padding-left: 0;
+            position: relative;
+        }
+        .carousel .carousel-images ul li {
+            position: absolute;
+            list-style-type: none;
+        }
+        .carousel .carousel-images ul li img {
+            width: 1170px;
+            height: auto;
+            display: block;
+        }
+        .carousel .navigation {
+            margin: auto;
+        }
+        .carousel .navigation li {
+            list-style-type: none;
+            display: inline;
+            padding: 0 5px;
+            color: #000;
+        }
+        .carousel .navigation li.active {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="carousel" id="carousel">
+        <div class="arrow prev"><=</div>
+        <div class="carousel-images">
+            <ul>
+                <li>
+                    <img src="https://cs10.pikabu.ru/post_img/2018/06/21/10/1529597665124189599.jpg">
+                </li>
+                <li>
+                    <img src="https://cs7.pikabu.ru/post_img/2018/06/21/10/1529597652134517558.jpg">
+                </li>
+                <li>
+                    <img src="https://cs7.pikabu.ru/post_img/2018/06/21/10/152959764518437593.jpg">
+                </li>
+                <li>
+                    <img src="https://cs7.pikabu.ru/post_img/2018/06/21/10/1529597617155826805.jpg">
+                </li>
+                <li>
+                    <img src="https://cs10.pikabu.ru/post_img/2018/06/21/10/152959760815609960.jpg">
+                </li>
+            </ul>
+        </div>
+        <div class="arrow next">=></div>
+    </div>
+
+</div>
+
+
+<script src="src/main.js"></script>
+</body>
+</html>
