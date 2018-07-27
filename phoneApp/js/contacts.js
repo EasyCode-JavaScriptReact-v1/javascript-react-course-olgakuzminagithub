@@ -30,16 +30,21 @@ class ContactPage {
           ${this.colums.map(colum => {return`<th>${colum}</th>`}).join('')}
          </thead>
          <tbody>
-         ${this.users.map(user => {return`
+         ${this.renderTable()}</tbody>
+         </table>
+         </div>
+         </main>`
+    }
+    renderTable() {
+        return `
+        ${this.users.map(user => {return`
              <tr>
              <td>${user.name}</td>
              <td>${user.lastName}</td>
              <td>${user.email}</td>
              </tr>`
-        }).join('')}</tbody>
-         </table>
-         </div>
-         </main>`
+        }).join('')}
+        `
     }
     renderFooter () {
         return `<footer class="footer">
@@ -62,6 +67,18 @@ class ContactPage {
          </a>`
 
     }
+    sortByParameter (param) {
+        this.users.sort(function (a, b) {
+            if (a[param] > b[param]) {
+                return 1
+            }
+            if (a[param] < b[param]) {
+                return -1
+            }
+            return 0
+        });
+    };
+
 }
 
 const users = [
@@ -125,4 +142,26 @@ const colums = ['Name', 'LastName', 'Email'];
 
 const contactPage = new ContactPage(colums, users);
 contactPage.render();
+
+
+/* Сортировка по параметрам */
+const paramsForSort = document.querySelectorAll('th');
+let tBody = document.querySelector('tbody');
+console.log(tBody);
+
+paramsForSort[0].onclick = function () {
+    contactPage.sortByParameter('name');
+    tBody.innerHTML = contactPage.renderTable()
+};
+paramsForSort[1].onclick = function () {
+    contactPage.sortByParameter('lastName');
+    tBody.innerHTML = contactPage.renderTable()
+};
+paramsForSort[2].onclick = function () {
+    contactPage.sortByParameter('email');
+    tBody.innerHTML = contactPage.renderTable()
+};
+
+
+
 

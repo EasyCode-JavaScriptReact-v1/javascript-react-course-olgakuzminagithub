@@ -160,6 +160,7 @@ h3 {
 
 .table > thead > tr > th {
     border: none;
+    cursor: pointer;
 }
 
 .form-inline .form-control {
