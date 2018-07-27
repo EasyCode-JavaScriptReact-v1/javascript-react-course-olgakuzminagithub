@@ -1,0 +1,44 @@
+* {
+  border: none; }
+
+body {
+  background: grey; }
+  body .test {
+    width: 60%;
+    height: 100%;
+    border: 1px solid black;
+    background: white;
+    margin: auto;
+    padding-top: 20px;
+    padding-bottom: 40px; }
+    @media (max-width: 768px) {
+      body .test {
+        width: 100%; } }
+    body .test h1 {
+      width: 100%;
+      text-align: center;
+      font-size: 18px;
+      color: black;
+      margin: 40px; }
+    body .test form {
+      width: 80%;
+      margin: auto; }
+      body .test form fieldset {
+        margin-bottom: 30px; }
+      body .test form label {
+        display: block;
+        margin-bottom: 10px; }
+      body .test form input {
+        padding-left: 10px;
+        box-sizing: border-box; }
+      body .test form button {
+        display: block;
+        width: auto;
+        height: 40px;
+        padding: 0 20px;
+        border: 1px solid black;
+        background: cornflowerblue;
+        margin: auto;
+        font-size: 16px; }
+
+/*# sourceMappingURL=style.css.map */
