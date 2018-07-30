@@ -45,9 +45,31 @@ class Carousel {
         this.transition = element.transition,
         this.infinity = element.infinity,
         this.nav = element.nav,
-        this.timer = element.timer
+        this.timer = element.timer,
+        this.list = carousel.querySelectorAll('li');
     }
-    start() {
+    static initialize(properties) {
+        let myInitializedCarousel =  new Carousel(properties);
+        myInitializedCarousel.start();
+    }
+    infinityCarousel () {
+        let last = this.list.length - 1;
+        if (!this.list[last].classList.contains('active')) {
+            for (let i = 0; i < this.list.length; i ++) {
+                let nextPosition = parseInt(this.list[i].style.left) - this.widthImg * this.count;
+                this.list[i].style.left = nextPosition + 'px';
+                let position = parseInt(this.list[i].style.left);
+                if (position === 0) {
+                    this.list[i].classList.add('active')
+                } else {
+                    this.list[i].classList.remove('active')
+                }
+            }
+        } else if (this.list[last].classList.contains('active') && this.infinity === true) {
+            this.startCarousel();
+        }
+    }
+    startCarousel () {
         /*Объявляем перменные */
         let carousel =  document.querySelector(this.elementToApply);
         let prev = carousel.querySelector('.prev');
@@ -64,7 +86,7 @@ class Carousel {
         const div = document.createElement('div');
         div.setAttribute('class', 'navigation');
         const ul = document.createElement('ul');
-        for (let i = 0; i < list.length; i++) {
+        for (let i = 0; i < this.list.length; i++) {
             const li = document.createElement('li');
             li.setAttribute('class', 'nav');
             li.innerHTML = i + 1;
@@ -73,14 +95,14 @@ class Carousel {
         div.appendChild(ul);
         let navs = [];
 
-        /* Добавьте внизу цифры с текущим активным изображением.*/
-
         if (nav === true) {
             carousel.appendChild(div);
             navs = carousel.querySelectorAll('.nav');
         }
 
         /* Один круг карусели */
+        /* Не получилось разделить метод на несколько, потому что при событии onclick
+        не получаеться обращаться к глобальной переменной this.list и надо переопредлять переменную list в саом методе */
 
         const newRoundCarusel = () => {
             for (let i = 0; i < list.length; i ++) {
@@ -139,37 +161,20 @@ class Carousel {
                 }
             };
         };
-
-        /*Запускаем  карусель */
-
         newRoundCarusel();
 
+    }
+    start () {
+        this.startCarousel();
 
         /*Запускаем таймер, если он есть*/
 
         if (this.timer !== 0) {
             setInterval(() => {
-                let last = list.length - 1;
-                if (!list[last].classList.contains('active')) {
-                    for (let i = 0; i < list.length; i ++) {
-                        let nextPosition = parseInt(list[i].style.left) - widthImg * count;
-                        list[i].style.left = nextPosition + 'px';
-                        let position = parseInt(list[i].style.left);
-                        if (position === 0) {
-                            list[i].classList.add('active')
-                        } else {
-                            list[i].classList.remove('active')
-                        }
-                    }
-                } else if (list[last].classList.contains('active') && infinity === true) {
-                    newRoundCarusel();
-                }
+                this.infinityCarousel()
             }, this.timer);
         }
-    }
-    static initialize(properties) {
-        var myInitializedCarousel =  new Carousel(properties);
-        myInitializedCarousel.start();
+
     }
 }
 
@@ -182,36 +187,6 @@ Carousel.initialize({
     timer: 0
 });
 
-
-/*
-* TASK 2
-* Сделайте класс, который будет иметь метод topStyle
-* метод topStyle принимает объект с CSS стилями и добавляет в <head>
-*   новый элемент с данными стилями
-*
-*
-* */
-// .topStyle('fetch', {backgroundColor:'blue'})
-/*
-*
-* <style>.fetch {
-* background-color
-* */
-
-/* Не получилось */
-//
-// class Style {
-//     topStyle (className, yourStyle) {
-//        document.head.innerHTML =
-//            `<style>
-//             .${className} {
-//               ${yourStyle}
-//             }
-//             </style>`
-//     }
-// }
-// const newStyle  = new Style();
-// newStyle.topStyle('fetch', {backgroundColor:'blue'});
 
 
 
