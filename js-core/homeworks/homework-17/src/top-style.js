@@ -17,15 +17,14 @@
 /* Не получилось */
 
 class Style {
-    generalizationStyle (property) {
+    standartViewStyle (property) {
         return property.replace(/([a-z])([A-Z])/, '$1-$2').toLowerCase();
     }
     topStyle (className, yourStyle) {
-        const style = document.createEleaddment('style');
+        const style = document.createElement('style');
         let properties = '';
         for (let key in yourStyle) {
-            console.log(this.generalizationStyle(key));
-            properties += `${this.generalizationStyle(key)}: ${yourStyle[key]};
+            properties += `${this.standartViewStyle(key)}: ${yourStyle[key]};
             `;
         }
         style.innerHTML = `.${className} {
