@@ -115,7 +115,7 @@ class Carousel {
                     navs[list.length-1].classList.remove('active');
                 }
             }
-            prev.onclick = function () {
+            prev.onclick =  () => {
                 if (!list[0].classList.contains('active')) {
                     for (let i = 0; i < list.length; i ++) {
                         let nextPosition = parseInt(list[i].style.left) + widthImg * count;
