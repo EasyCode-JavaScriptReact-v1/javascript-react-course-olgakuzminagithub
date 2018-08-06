@@ -4,10 +4,8 @@ class ContactPage {
         this.users = users;
     }
     render() {
-        const mountNode = document.createElement('div');
-        mountNode.setAttribute('id', 'mountNode');
+        const mountNode = document.querySelector('#mountNode');
         mountNode.innerHTML += this.renderHeader() +this.renderMain() + this.renderFooter();
-        document.body.appendChild(mountNode);
     }
     renderHeader () {
         return `<header class="header">

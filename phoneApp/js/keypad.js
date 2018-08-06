@@ -1,13 +1,7 @@
 class KeypadPage {
-    constructor () {
-        this.keypad = ['1','2','3','4','5','6','7','8','9','*','0','#']
-
-    }
     render() {
-        const mountNode = document.createElement('div');
-        mountNode.setAttribute('id', 'mountNode');
+        const mountNode = document.querySelector('#mountNode');
         mountNode.innerHTML += this.renderHeader() +this.renderMain() + this.renderFooter();
-        document.body.appendChild(mountNode);
     }
     renderHeader () {
         return `<header class="header">
@@ -25,10 +19,19 @@ class KeypadPage {
             <span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>
         </div>
         <div class="keypad-holder">
-            ${this.keypad.map(button => {
-                return `<button class="key">${button}</button>`
-             }).join('')}
-            <button class="key"> <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span></button>
+            <button class="key">1</button>
+            <button class="key">2</button>
+            <button class="key">3</button>
+            <button class="key">4</button>
+            <button class="key">5</button>
+            <button class="key">6</button>
+            <button class="key">7</button>
+            <button class="key">8</button>
+            <button class="key">9</button>
+            <button class="key">*</button>
+            <button class="key">0</button>
+            <button class="key">#</button>
+            <button class="key"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span></button>
         </div>
         </div>
         </main>`
@@ -58,12 +61,24 @@ class KeypadPage {
 const keypadPage = new KeypadPage();
 keypadPage.render();
 
+
+/*Набор номера*/
+
 const buttons = document.querySelectorAll('button');
-const entryField = document.getElementsByClassName('numbers')[0];
+const entryField = document.querySelector('.numbers');
 
 for (let i = 0; i < buttons.length; i++) {
     buttons[i].onclick = function () {
-        console.log(entryField);
-        entryField.innerHTML += `${keypadPage.keypad[i]}`;
+        if (entryField.textContent.length < 10) {
+            entryField.innerHTML += `${buttons[i].textContent}`;
+        }
     }
 }
+
+/*Удаление номера*/
+
+const buttonDelete = document.querySelector('.glyphicon-circle-arrow-left');
+
+buttonDelete.onclick = function () {
+    entryField.innerHTML = `${entryField.textContent.slice(0, -1)}`;
+};
