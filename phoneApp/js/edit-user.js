@@ -36,17 +36,17 @@ class EditUser {
                 <div class="main-info-holder">
                     <div class="edit-field">
                         <button href="#" class="add-btn"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                            <span>First Name</span>
+                            <span contenteditable="true">First Name</span>
                         </button>
                     </div>
                     <div class="edit-field">
                         <button href="#" class="add-btn"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                            <span>Last Name</span>
+                            <span contenteditable="true">Last Name</span>
                         </button>
                     </div>
                     <div class="edit-field">
                         <button href="#" class="add-btn"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                            <span>Company</span>
+                            <span contenteditable="true">Company</span>
                         </button>
                     </div>
                 </div>
@@ -56,37 +56,37 @@ class EditUser {
                     <div class="edit-field">
                         <button href="#" class="delete-btn"><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>
                             <span>phone</span>
-                            <span>${this.user.phone}</span>
+                            <span contenteditable="true">${this.user.phone}</span>
                         </button>
                     </div>
                     <div class="edit-field">
                         <button href="#" class="add-btn"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                            <span>add  home phone</span>
+                            <span contenteditable="true">add  home phone</span>
                         </button>
                     </div>
                     <div class="edit-field">
                         <button href="#" class="add-btn"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                            <span>add email</span>
+                            <span contenteditable="true">add email</span> 
                         </button>
                     </div>
                     <div class="edit-field">
                         <button href="#" class="add-btn"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                            <span>add address</span>
+                            <span contenteditable="true">add address</span>
                         </button>
                     </div>
                     <div class="edit-field">
                         <button href="#" class="add-btn"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                            <span>add birthday</span>
+                            <span contenteditable="true">add birthday</span>
                         </button>
                     </div>
                     <div class="edit-field">
                         <button href="#" class="add-btn"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                            <span>add social profile</span>
+                            <span contenteditable="true">add social profile</span>
                         </button>
                     </div>
                     <div class="edit-field">
                         <button href="#" class="add-btn"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                            <span>add field</span>
+                            <span contenteditable="true" >add field</span>
                         </button>
                     </div>
                     <div class="edit-field">
