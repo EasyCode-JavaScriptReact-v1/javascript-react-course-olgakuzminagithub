@@ -1,22 +1,10 @@
 class AddUser {
-    constructor (colums, users) {
-        this.user = {
-            photo: '',
-            firstName: '',
-            lastName: '',
-            company:'',
-            phone: '',
-            homePhone: '',
-            email: '',
-            address: '',
-            birthday: '',
-            socialProfile: '',
-
-        }
+    constructor (globalState) {
+        this.users = globalState;
     }
     render() {
-        const mountNode = document.querySelector('#mountNode');
-        mountNode.innerHTML += this.renderHeader() +this.renderMain() + this.renderFooter();
+        const app = document.querySelector('#app');
+        app.innerHTML = this.renderHeader() +this.renderMain();
     }
     renderHeader() {
         return `<header class="header">
@@ -99,28 +87,4 @@ class AddUser {
         </div>
     </main>`
     }
-    renderFooter () {
-        return `<footer class="footer">
-        <div class="container bottom-radius">
-        <nav class="main-nav">
-            ${this.renderLink({ url: 'contacts.html', content:'Contacts', icon:'search'})}
-            ${this.renderLink({ url: 'keypad.html', content:'Keypad',  icon:'th'})}
-            ${this.renderLink({ url: 'edit-contact.html', content:'Edit contact',  icon:'pencil'})}
-            ${this.renderLink({ url: 'user.htm', content:'User',  icon:'user'})}
-            ${this.renderLink({ url: 'add-user.html', content:'Add user', className:'active',  icon:'plus'})}
-         </nav>
-         </div>
-         </footer>`
-
-    }
-    renderLink (linkProperties) {
-        return `<a href="${linkProperties.url}.html" class="tab ${linkProperties.className}">
-                <span class="glyphicon glyphicon-${linkProperties.icon}" aria-hidden="true"></span>
-                <span class = "tab-text">${linkProperties.content}</span>
-         </a>`
-
-    }
 }
-
-const editUser = new AddUser();
-editUser.render();

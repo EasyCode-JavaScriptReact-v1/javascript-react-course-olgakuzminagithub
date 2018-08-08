@@ -1,11 +1,11 @@
 class ContactPage {
-    constructor (colums, users) {
-        this.colums = colums;
-        this.users = users;
+    constructor (globalState) {
+        this.state = globalState;
     }
     render() {
-        const mountNode = document.querySelector('#mountNode');
-        mountNode.innerHTML += this.renderHeader() +this.renderMain() + this.renderFooter();
+        const app = document.querySelector('#app');
+        app.innerHTML = this.renderHeader() +this.renderMain();
+        this.sortByParameterOnClick();
     }
     renderHeader () {
         return `<header class="header">
@@ -25,7 +25,9 @@ class ContactPage {
          </form>
          <table class="table table-hover contacts">
          <thead>
-          ${this.colums.map(colum => {return`<th>${colum}</th>`}).join('')}
+            <th>Name</th>
+            <th>LastName</th>
+            <th>Email</th>
          </thead>
          <tbody>
          ${this.renderTable()}</tbody>
@@ -35,7 +37,7 @@ class ContactPage {
     }
     renderTable() {
         return `
-        ${this.users.map(user => {return`
+        ${this.state.users.map(user => {return`
              <tr>
              <td>${user.name}</td>
              <td>${user.lastName}</td>
@@ -44,29 +46,9 @@ class ContactPage {
         }).join('')}
         `
     }
-    renderFooter () {
-        return `<footer class="footer">
-        <div class="container bottom-radius">
-        <nav class="main-nav">
-            ${this.renderLink({ url: 'contacts.html', content:'Contacts', className:'active', icon:'search'})}
-            ${this.renderLink({ url: 'keypad.html', content:'Keypad',  icon:'th'})}
-            ${this.renderLink({ url: 'edit-contact.html', content:'Edit contact',  icon:'pencil'})}
-            ${this.renderLink({ url: 'user.htm', content:'User',  icon:'user'})}
-            ${this.renderLink({ url: 'add-user.html', content:'Add user',  icon:'plus'})}
-         </nav>
-         </div>
-         </footer>`
-
-    }
-    renderLink (linkProperties) {
-        return `<a href="${linkProperties.url}.html" class="tab ${linkProperties.className}">
-                <span class="glyphicon glyphicon-${linkProperties.icon}" aria-hidden="true"></span>
-                <span class = "tab-text">${linkProperties.content}</span>
-         </a>`
-
-    }
+    /* Сортировка по параметрам */
     sortByParameter (param) {
-        this.users.sort(function (a, b) {
+        this.state.users.sort(function (a, b) {
             if (a[param] > b[param]) {
                 return 1
             }
@@ -76,89 +58,26 @@ class ContactPage {
             return 0
         });
     };
+    sortByParameterOnClick () {
+        const paramsForSort = document.querySelectorAll('th');
+        let tBody = document.querySelector('tbody');
 
+        paramsForSort[0].onclick = () => {
+            this.sortByParameter('name');
+            tBody.innerHTML = this.renderTable()
+        };
+        paramsForSort[1].onclick = () => {
+            this.sortByParameter('lastName');
+            tBody.innerHTML = this.renderTable()
+        };
+        paramsForSort[2].onclick = () => {
+            this.sortByParameter('email');
+            tBody.innerHTML = this.renderTable()
+        };
+    }
 }
 
-const users = [
-    {
-        name: 'Иван',
-        lastName: 'Петров',
-        email: 'ivanpetrov@gmail.com'
-    },
-    {
-        name: 'Сергей',
-        lastName:'Сергеев',
-        email: 'sergeysergeev@gmail.com'
-    },
-    {
-        name: 'Иван',
-        lastName: 'Петров',
-        email: 'ivanpetrov@gmail.com'
-    },
-    {
-        name: 'Александр',
-        lastName: 'Александров',
-        email: 'alex@gmail.com'
-    },
-    {
-        name: 'Алекс',
-        lastName: 'Смирнов',
-        email: 'smirnov@gmail.com'
-    },
-    {
-        name: 'Сергей',
-        lastName: 'Волков',
-        email: 'srgvolk@gmail.com'
-    },
-    {
-        name: 'Мария',
-        lastName: 'Шарапова',
-        email: 'mari@gmail.com'
-    },
-    {
-        name: 'Александр',
-        lastName: 'Винник',
-        email: 'smirnov@gmail.com'
-    },
-    {
-        name: 'Паша',
-        lastName: 'Новиков',
-        email: 'pasha@gmail.com'
-    },
-    {
-        name: 'Даша',
-        lastName: 'Стрижак',
-        email: 'dasha@gmail.com'
-    },
-    {
-        name: 'Елена',
-        lastName: 'Лещенко',
-        email: '@gmail.com'
-    },
-];
-const colums = ['Name', 'LastName', 'Email'];
 
-const contactPage = new ContactPage(colums, users);
-contactPage.render();
-
-
-/* Сортировка по параметрам */
-const paramsForSort = document.querySelectorAll('th');
-let tBody = document.querySelector('tbody');
-console.log(tBody);
-
-paramsForSort[0].onclick = function () {
-    contactPage.sortByParameter('name');
-    tBody.innerHTML = contactPage.renderTable()
-};
-paramsForSort[1].onclick = function () {
-    contactPage.sortByParameter('lastName');
-    tBody.innerHTML = contactPage.renderTable()
-};
-paramsForSort[2].onclick = function () {
-    contactPage.sortByParameter('email');
-    tBody.innerHTML = contactPage.renderTable()
-};
 
 
 

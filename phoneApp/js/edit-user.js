@@ -1,22 +1,10 @@
 class EditUser {
-    constructor (colums, users) {
-        this.user = {
-            photo: '',
-            firstName: '',
-            lastName: '',
-            company:'',
-            phone: '0663143296',
-            homePhone: '',
-            email: '',
-            address: '',
-            birthday: '',
-            socialProfile: '',
-
-        }
+    constructor (globalState) {
+        this.state = globalState;
     }
     render() {
-        const mountNode = document.querySelector('#mountNode');
-        mountNode.innerHTML += this.renderHeader() +this.renderMain() + this.renderFooter();
+        const app = document.querySelector('#app');
+        app.innerHTML = this.renderHeader() +this.renderMain();
     }
     renderHeader() {
         return `<header class="header">
@@ -56,7 +44,6 @@ class EditUser {
                     <div class="edit-field">
                         <button href="#" class="delete-btn"><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>
                             <span>phone</span>
-                            <span contenteditable="true">${this.user.phone}</span>
                         </button>
                     </div>
                     <div class="edit-field">
@@ -120,5 +107,5 @@ class EditUser {
     }
 }
 
-const editUser = new EditUser();
-editUser.render();
+// const editUser = new EditUser();
+// editUser.render();

@@ -1,23 +1,10 @@
 class User {
-    constructor() {
-        this.user = {
-            userName: 'userName',
-            userPhoto: 'images/user-face.png',
-            optionLine: [
-                {name:'message', glyphicon: 'glyphicon-comment'},
-                {name:'call', glyphicon: 'glyphicon-earphone'},
-                {name:'video', glyphicon: 'glyphicon-facetime-video'},
-                {name:'mail', glyphicon: 'glyphicon-envelope'},
-            ],
-            mobilePhone: '+38 (093) 989 89 89',
-            homePhone: '+38 (093) 989 89 89',
-            optionTable: ['Notes', 'Send message', 'Share contact', 'Add to favorites', 'Share my location', 'Block this caller']
-        }
+    constructor (globalState) {
+        this.state = globalState;
     }
     render () {
-        const mountNode = document.querySelector('#mountNode');
-        mountNode.innerHTML += this.renderHeader() +this.renderMain() + this.renderFooter();
-        console.log(this.user.optionTable);
+        const app = document.querySelector('#app');
+        app.innerHTML = this.renderHeader() +this.renderMain();
 
     }
     renderHeader () {
@@ -34,58 +21,47 @@ class User {
 
     }
     renderMain () {
-        return `<main class="main">
-        <div class="container">
-            <img src="${this.user.userPhoto}" alt="#" class=" user-img img-circle center-block">
-            <div class="user-name">${this.user.userName}</div>
-            <div class="options-line">
-            ${this.user.optionLine.map(option => {
-                return ` <div class="${option.name}">
-                            <div class= "options-icon"><span class="icon glyphicon ${option.glyphicon}" aria-hidden="true"></span></div>
-                            <span class = "options-text">${option.name}</span>
-                        </div>`
-            }).join('')}
-            </div>
-            <div class="tel-number">
-                <h3>mobile</h3>
-                <div>${this.user.mobilePhone}</div>
-            </div>
-            <div class="tel-number">
-                <h3>home</h3>
-                <div>${this.user.homePhone}</div>
-            </div>
-            <div class="options-table">
-                ${this.user.optionTable.map(option => {
-                    return `<div class ="options-item"><a href="#">${option}</a></div>`
-                    
-                }).join('')}
-            </div>
-        </div>
-    </main>`
+        return `
+        <main class="main">
+			<div class="container">
+				<img src="images/user-face.png" alt="#" class=" user-img img-circle center-block">
+				<div class="user-name">User Name</div>
+				<div class="options-line">
+					<div class="message">
+						<div class= "options-icon"><span class="icon glyphicon glyphicon-comment" aria-hidden="true"></span></div>
+						<span class = "options-text">message</span>
+					</div>
+					<div class="call">
+						<div class= "options-icon"><span class="icon glyphicon glyphicon-earphone" aria-hidden="true"></span></div>
+						<span class = "options-text">call</span>
+					</div>
+					<div class="video">
+						<div class= "options-icon"><span class="icon glyphicon glyphicon-facetime-video" aria-hidden="true"></span></div>
+						<span class = "options-text">video</span>
+					</div>
+					<div class="mail">
+						<div class= "options-icon"><span class="icon glyphicon glyphicon-envelope" aria-hidden="true"></span></div>
+						<span class = "options-text">mail</span>
+					</div>
+				</div>
+				<div class="tel-number">
+					<h3>mobile</h3>
+					<div> +38 (093) 989 89 89</div>
+				</div>
+				<div class="tel-number">
+					<h3>home</h3>
+					<div> +38 (093) 989 89 89</div>
+				</div>
+				<div class="options-table">
+					<div class ="options-item"><a href="#">Notes</a></div>
+					<div class ="options-item"><a href="#">Send message</a></div>
+					<div class ="options-item"><a href="#">Share contact</a></div>
+					<div class ="options-item"><a href="#">Add to favorites</a></div>
+					<div class ="options-item"><a href="#">Share my location</a></div>
+					<div class ="options-item"><a href="#">Block this caller</a></div>
+				</div>
+			</div>
+		</main>
+        `
     }
-    renderLink (linkProperties) {
-        return `<a href="${linkProperties.url}.html" class="tab ${linkProperties.className}">
-                <span class="glyphicon glyphicon-${linkProperties.icon}" aria-hidden="true"></span>
-                <span class = "tab-text">${linkProperties.content}</span>
-         </a>`
-
-    }
-    renderFooter () {
-        return `<footer class="footer">
-        <div class="container bottom-radius">
-        <nav class="main-nav">
-            ${this.renderLink({ url: 'contacts.html', content:'Contacts', icon:'search'})}
-            ${this.renderLink({ url: 'keypad.html', content:'Keypad',  icon:'th'})}
-            ${this.renderLink({ url: 'edit-contact.html', content:'Edit contact',  icon:'pencil'})}
-            ${this.renderLink({ url: 'user.htm', content:'User', className:'active',  icon:'user'})}
-            ${this.renderLink({ url: 'add-user.html', content:'Add user',  icon:'plus'})}
-         </nav>
-         </div>
-         </footer>`
-
-    }
-
 }
-
-const user = new User();
-user.render();
