@@ -1,12 +1,14 @@
 class ContactPage {
-    constructor (globalState) {
-        this.state = globalState;
+    constructor (bdUsers) {
+        this.users = bdUsers;
     }
+
     render() {
         const app = document.querySelector('#app');
         app.innerHTML = this.renderHeader() +this.renderMain();
         this.sortByParameterOnClick();
     }
+
     renderHeader () {
         return `<header class="header">
             <div class="container top-radius">
@@ -14,6 +16,7 @@ class ContactPage {
         </div>
         </header>`
     }
+
     renderMain () {
         return `<main>
         <div class="container">
@@ -35,9 +38,10 @@ class ContactPage {
          </div>
          </main>`
     }
+
     renderTable() {
         return `
-        ${this.state.users.map(user => {return`
+        ${this.users.map(user => {return`
              <tr>
              <td>${user.name}</td>
              <td>${user.lastName}</td>
@@ -46,9 +50,11 @@ class ContactPage {
         }).join('')}
         `
     }
+
     /* Сортировка по параметрам */
+
     sortByParameter (param) {
-        this.state.users.sort(function (a, b) {
+        this.users.sort(function (a, b) {
             if (a[param] > b[param]) {
                 return 1
             }
@@ -58,6 +64,9 @@ class ContactPage {
             return 0
         });
     };
+
+    /* Сортировка по клику */
+
     sortByParameterOnClick () {
         const paramsForSort = document.querySelectorAll('th');
         let tBody = document.querySelector('tbody');

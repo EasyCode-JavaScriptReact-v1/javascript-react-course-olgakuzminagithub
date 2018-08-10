@@ -1,77 +1,23 @@
 class App {
-    constructor() {
+    constructor(bdUsers) {
         this.state = {
-            users: [
-                {
-                    name: 'Иван',
-                    lastName: 'Петров',
-                    email: 'ivanpetrov@gmail.com'
-                },
-                {
-                    name: 'Сергей',
-                    lastName:'Сергеев',
-                    email: 'sergeysergeev@gmail.com'
-                },
-                {
-                    name: 'Иван',
-                    lastName: 'Петров',
-                    email: 'ivanpetrov@gmail.com'
-                },
-                {
-                    name: 'Александр',
-                    lastName: 'Александров',
-                    email: 'alex@gmail.com'
-                },
-                {
-                    name: 'Алекс',
-                    lastName: 'Смирнов',
-                    email: 'smirnov@gmail.com'
-                },
-                {
-                    name: 'Сергей',
-                    lastName: 'Волков',
-                    email: 'srgvolk@gmail.com'
-                },
-                {
-                    name: 'Мария',
-                    lastName: 'Шарапова',
-                    email: 'mari@gmail.com'
-                },
-                {
-                    name: 'Александр',
-                    lastName: 'Винник',
-                    email: 'smirnov@gmail.com'
-                },
-                {
-                    name: 'Паша',
-                    lastName: 'Новиков',
-                    email: 'pasha@gmail.com'
-                },
-                {
-                    name: 'Даша',
-                    lastName: 'Стрижак',
-                    email: 'dasha@gmail.com'
-                },
-                {
-                    name: 'Елена',
-                    lastName: 'Лещенко',
-                    email: '@gmail.com'
-                },
-            ],
+            users: bdUsers,
             activePage: 'contacts'
         };
         this.pages = {
-            contacts: new ContactPage(this.state),
+            contacts: new ContactPage(this.state.users),
             keypad: new KeypadPage(),
             editcontact: new EditUser(this.state),
             user: new User(this.state),
             adduser: new AddUser(this.state),
         };
-        this.initializeRouter();
+        this.renderRouter();
         this.switchRouter();
-
     }
-    initializeRouter () {
+
+    /*Ренедеим футер*/
+
+    renderRouter () {
         const mountNode = document.querySelector('#mountNode');
         mountNode.innerHTML = `
         <div id="app"></div>
@@ -88,6 +34,9 @@ class App {
          </footer>
         `
     }
+
+    /*Ренедеим ссылки в футере*/
+
     renderLink (linkProperties) {
         return `
         <a href="${linkProperties.url}.html" class="tab ${linkProperties.className}">
@@ -96,11 +45,15 @@ class App {
          </a>`
 
     }
+
+    /*Преобразуем контент в сыылке в нужный формат */
+
     conversionActiveLink(text) {
         return text.replace(/\s/g, "").toLowerCase();
-
-
     }
+
+    /*Переключатель вкладок в футере*/
+
     switchRouter() {
         const linksForRouter = document.querySelectorAll('.tab');
         for (let i = 0; i < linksForRouter.length; i++) {
@@ -118,7 +71,6 @@ class App {
         }
     }
     // updateView() {
-    //     const activePage = this.state.activePage;
     //     this.pages[activePage].updateState(this.state);
     //
     // }
@@ -128,7 +80,35 @@ class App {
         this.pages[activePage].render();
 
     }
+
+    /*Подключаемся к базе данных, преобразуем обьект user, запускаем app, передаем туда массив юзеров*/
+
+    static initialize(bdUrl) {
+        const url = bdUrl;
+        const xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = () => {
+            if(xhr.readyState === 4) {
+                let users = [];
+                JSON.parse(xhr.responseText).map(elem => {
+                    let user = {};
+                    user.id = elem._id;
+                    user.name = elem.fullName.split(' ')[0];
+                    user.lastName = elem.fullName.split(' ')[1] ? elem.fullName.split(' ')[1] : ' ';
+                    user.email = elem.email;
+                    user.phone = elem.phone;
+                    users.push(user);
+                });
+                const app  = new App(users);
+                app.render();
+            }
+        };
+        xhr.open('GET', url + '/users', true);
+        xhr.send();
+    }
 }
 
-const app = new App();
-app.render();
+App.initialize('http://easycode-js.herokuapp.com/olku');
+
+
+
+
