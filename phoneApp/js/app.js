@@ -9,7 +9,7 @@ class App {
             keypad: new KeypadPage(),
             editcontact: new EditUser(this.state),
             user: new User(this.state),
-            adduser: new AddUser(this.state),
+            adduser: new AddUser(),
         };
         this.renderRouter();
         this.switchRouter();
@@ -83,8 +83,8 @@ class App {
 
     /*Подключаемся к базе данных, преобразуем обьект user, запускаем app, передаем туда массив юзеров*/
 
-    static initialize(bdUrl) {
-        const url = bdUrl;
+    static initialize() {
+        const url = 'http://easycode-js.herokuapp.com/olku';
         const xhr = new XMLHttpRequest();
         xhr.onreadystatechange = () => {
             if(xhr.readyState === 4) {
@@ -107,7 +107,7 @@ class App {
     }
 }
 
-App.initialize('http://easycode-js.herokuapp.com/olku');
+App.initialize();
 
 
 

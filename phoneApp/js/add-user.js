@@ -5,6 +5,7 @@ class AddUser {
     render() {
         const app = document.querySelector('#app');
         app.innerHTML = this.renderHeader() +this.renderMain();
+        this.addUser();
     }
     renderHeader() {
         return `<header class="header">
@@ -22,22 +23,22 @@ class AddUser {
             <div class="edit-main-info">
                 <div class="edit-foto">
                     <button class="add-foto-btn"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                        <span>add foto</span></button>
+                        <span contenteditable="true">add foto</span></button>
                  </div>
                 <div class="main-info-holder">
                     <div class="edit-field">
                         <button href="#" class="add-btn"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                            <span>First Name</span>
+                            <span contenteditable="true">First Name</span>
                         </button>
                     </div>
                     <div class="edit-field">
                         <button href="#" class="add-btn"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                            <span>Last Name</span>
+                            <span contenteditable="true">Last Name</span>
                         </button>
                     </div>
                     <div class="edit-field">
                         <button href="#" class="add-btn"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                            <span>Company</span>
+                            <span contenteditable="true">Company</span>
                         </button>
                     </div>
                 </div>
@@ -46,37 +47,37 @@ class AddUser {
                 <div class="edit-info">
                     <div class="edit-field">
                         <button href="#" class="add-btn"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                            <span>phone</span>
+                            <span contenteditable="true">phone</span>
                         </button>
                     </div>
                     <div class="edit-field">
                         <button href="#" class="add-btn"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                            <span>add  home phone</span>
+                            <span contenteditable="true">add  home phone</span>
                         </button>
                     </div>
                     <div class="edit-field">
                         <button href="#" class="add-btn"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                            <span>add email</span>
+                            <span contenteditable="true">add email</span>
                         </button>
                     </div>
                     <div class="edit-field">
                         <button href="#" class="add-btn"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                            <span>add address</span>
+                            <span contenteditable="true">add address</span>
                         </button>
                     </div>
                     <div class="edit-field">
                         <button href="#" class="add-btn"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                            <span>add birthday</span>
+                            <span contenteditable="true">add birthday</span>
                         </button>
                     </div>
                     <div class="edit-field">
                         <button href="#" class="add-btn"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                            <span>add social profile</span>
+                            <span contenteditable="true">add social profile</span>
                         </button>
                     </div>
                     <div class="edit-field">
                         <button href="#" class="add-btn"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                            <span>add field</span>
+                            <span contenteditable="true">add field</span>
                         </button>
                     </div>
                     <div class="edit-field">
@@ -87,4 +88,51 @@ class AddUser {
         </div>
     </main>`
     }
+
+    /*Добавляем юзера на сервер*/
+
+    serverAddUser (user) {
+        const url = 'http://easycode-js.herokuapp.com/olku/users';
+        const xhr = new XMLHttpRequest();
+        xhr.addEventListener('eadystatechange', () => {
+            if (xhr.readyState === 4) {
+                console.log(xhr.responseText)
+            }
+        });
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('Content-type', 'application/json');
+        xhr.send(JSON.stringify(user));
+    };
+
+    conversionTextContent(text) {
+        return text.replace(/\s/g, "");
+    }
+
+    /*Добавляем юзера при клике*/
+
+    addUser() {
+        const btnDone = document.querySelector('.done-btn');
+        const user = {};
+
+
+        btnDone.addEventListener('click', () => {
+            const fields = document.querySelectorAll('.edit-field');
+            if (this.conversionTextContent(fields[0].textContent) !== 'FirstName') {
+                user.fullName = this.conversionTextContent(fields[0].textContent)
+            }
+            if (this.conversionTextContent(fields[1].textContent)!== 'LastName') {
+                user.fullName += ' ' + this.conversionTextContent(fields[1].textContent)
+            }
+            if (this.conversionTextContent(fields[3].textContent) !== 'phone') {
+                user.phone = this.conversionTextContent(fields[3].textContent)
+            }
+            if (this.conversionTextContent(fields[5].textContent)!== 'email') {
+                user.email = this.conversionTextContent(fields[5].textContent)
+            }
+            console.log(user);
+            this.serverAddUser(user);
+        });
+
+    }
+
 }
