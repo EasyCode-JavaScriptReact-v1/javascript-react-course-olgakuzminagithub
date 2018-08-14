@@ -1,20 +1,23 @@
 class ContactPage {
-    constructor (bdUsers) {
+    constructor (store) {
         this.users = bdUsers;
+        this.store = store;
+
     }
 
-    updateState() {
-        const api = new Api();
-        return api.getAllUsers();
+    componentDidMount() {
+        api.getAllUsers().then(users => {
+            this.store.setState({users});
+        });
+        this.addEventHandlers();
     }
 
     render() {
-        this.updateState().then(users => {
-            this.users = this.constructorUsers(users);
-            const app = document.querySelector('#app');
-            app.innerHTML = this.renderHeader() + this.renderMain();
-            this.sortByParameterOnClick();
-        });
+        const {users} = this.store.state;
+
+        this.users = this.constructorUsers(users);
+        const app = document.querySelector('#app');
+        return this.renderHeader() + this.renderMain();
     }
 
     constructorUsers(users) {
@@ -89,7 +92,7 @@ class ContactPage {
 
     /* Сортировка по клику */
 
-    sortByParameterOnClick () {
+    addEventHandlers () {
         const paramsForSort = document.querySelectorAll('th');
         let tBody = document.querySelector('tbody');
 
