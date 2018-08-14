@@ -1,7 +1,4 @@
 class AddUser {
-    constructor (globalState) {
-        this.users = globalState;
-    }
     render() {
         const app = document.querySelector('#app');
         app.innerHTML = this.renderHeader() +this.renderMain();
@@ -93,15 +90,13 @@ class AddUser {
 
     serverAddUser (user) {
         const url = 'http://easycode-js.herokuapp.com/olku/users';
-        const xhr = new XMLHttpRequest();
-        xhr.addEventListener('eadystatechange', () => {
-            if (xhr.readyState === 4) {
-                console.log(xhr.responseText)
-            }
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
         });
-        xhr.open('POST', url, true);
-        xhr.setRequestHeader('Content-type', 'application/json');
-        xhr.send(JSON.stringify(user));
     };
 
     conversionTextContent(text) {

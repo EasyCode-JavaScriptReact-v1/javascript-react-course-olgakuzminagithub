@@ -3,11 +3,33 @@ class ContactPage {
         this.users = bdUsers;
     }
 
-    render() {
-        const app = document.querySelector('#app');
-        app.innerHTML = this.renderHeader() +this.renderMain();
-        this.sortByParameterOnClick();
+    updateState() {
+        const api = new Api();
+        return api.getAllUsers();
     }
+
+    render() {
+        this.updateState().then(users => {
+            this.users = this.constructorUsers(users);
+            const app = document.querySelector('#app');
+            app.innerHTML = this.renderHeader() + this.renderMain();
+            this.sortByParameterOnClick();
+        });
+    }
+
+    constructorUsers(users) {
+       let newUsers = [];
+       users.map(user => {
+           let newUser = {};
+           newUser.id = user._id;
+           newUser.name = user.fullName.split(' ')[0];
+           newUser.lastName = user.fullName.split(' ')[1] ? user.fullName.split(' ')[1] : ' ';
+           newUser.email = user.email;
+           newUser.phone = user.phone;
+           newUsers.push(newUser);
+       });
+       return newUsers;
+   }
 
     renderHeader () {
         return `<header class="header">
