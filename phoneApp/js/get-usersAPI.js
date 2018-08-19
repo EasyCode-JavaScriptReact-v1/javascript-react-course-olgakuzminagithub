@@ -7,5 +7,4 @@ class Api {
             })
     }
 }
-
-const app = new Api();
+const api = new Api();

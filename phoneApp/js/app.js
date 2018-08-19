@@ -1,9 +1,8 @@
 class App {
-    constructor(bdUsers) {
+    constructor() {
         const store = this.createStore();
-
         this.state = {
-            users: bdUsers,
+            users: [],
             activePage: 'contacts'
         };
         this.pages = {
@@ -25,17 +24,14 @@ class App {
 
     createStore() {
         let state;
-
         return {
             getState() {
                 return state
             },
             setState(newState){
                 state = {
-                    ...state,
-                    ...newState
+                    users: newState
                 };
-                this.updateView();
             }
         }
     }
@@ -60,10 +56,10 @@ class App {
         }
     }
 
-    updateView () {
+    updateView() {
         const activePage = this.state.activePage;
-        this.pages[activePage].render();
-        this.app = this.pages[activePage].componetDidMount();
+        this.pages[activePage].componentDidMount();
+        this.app = this.pages[activePage].render();
     }
 
     render() {

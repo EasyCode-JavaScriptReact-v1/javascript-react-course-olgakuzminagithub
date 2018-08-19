@@ -1,1 +1,1 @@
-function Controller (view, model);
+function Controller (view, model) {}

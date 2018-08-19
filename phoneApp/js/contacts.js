@@ -1,22 +1,24 @@
 class ContactPage {
     constructor (store) {
-        this.users = bdUsers;
+        this.users = [];
         this.store = store;
 
     }
 
+
     componentDidMount() {
         api.getAllUsers().then(users => {
-            this.store.setState({users});
+            this.store.setState(users);
+            console.log('получение юзеров после api', this.store.getState());
         });
-        this.addEventHandlers();
+        // this.addEventHandlers();
     }
 
+    /*Строка 19 выполняеться раньше чем 11 строка, получаеться я хочу получить юзеров, которых еще не успела записать*/
     render() {
-        const {users} = this.store.state;
-
+        console.log('получение юзеров', this.store.getState());
+        const {users} = this.store.getState();
         this.users = this.constructorUsers(users);
-        const app = document.querySelector('#app');
         return this.renderHeader() + this.renderMain();
     }
 
