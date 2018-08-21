@@ -11,18 +11,10 @@ class App {
 
         this.router =  new Router();
         this.render();
-
         store.setState({
             users: [],
             activePage: 'contacts'
         });
-        this.pages = {
-            contacts: new ContactPage(store),
-            keypad: new KeypadPage(store),
-            editcontact: new EditUser(store),
-            user: new User(store),
-            adduser: new AddUser(store),
-        };
 
     }
 
