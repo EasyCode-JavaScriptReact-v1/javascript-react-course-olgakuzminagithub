@@ -1,10 +1,6 @@
 class App {
     constructor() {
         const store = this.createStore();
-        this.state = {
-            users: [],
-            activePage: 'contacts'
-        };
         this.pages = {
             contacts: new ContactPage(store),
             keypad: new KeypadPage(store),
@@ -12,8 +8,22 @@ class App {
             user: new User(store),
             adduser: new AddUser(store),
         };
+
         this.router =  new Router();
-        this.app = document.querySelector('#app');
+        this.render();
+
+        store.setState({
+            users: [],
+            activePage: 'contacts'
+        });
+        this.pages = {
+            contacts: new ContactPage(store),
+            keypad: new KeypadPage(store),
+            editcontact: new EditUser(store),
+            user: new User(store),
+            adduser: new AddUser(store),
+        };
+
     }
 
     /*Преобразуем контент в сыылке в нужный формат */
@@ -24,15 +34,23 @@ class App {
 
     createStore() {
         let state;
+
+        const getState = () => {
+            return state;
+        };
+
+        const setState = (newState) => {
+            state = {
+                ...state,
+                ...newState,
+            };
+            this.pages[state.activePage].render();
+            console.log(this);
+        };
+
         return {
-            getState() {
-                return state
-            },
-            setState(newState){
-                state = {
-                    users: newState
-                };
-            }
+            getState,
+            setState
         }
     }
 
@@ -56,10 +74,10 @@ class App {
         }
     }
 
+
     updateView() {
         const activePage = this.state.activePage;
         this.pages[activePage].componentDidMount();
-        this.app = this.pages[activePage].render();
     }
 
     render() {

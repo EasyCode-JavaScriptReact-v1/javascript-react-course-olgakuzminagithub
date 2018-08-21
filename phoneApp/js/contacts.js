@@ -1,8 +1,6 @@
 class ContactPage {
     constructor (store) {
-        this.users = [];
-        this.store = store;
-
+       this.store = store;
     }
 
 
@@ -11,7 +9,6 @@ class ContactPage {
             this.store.setState(users);
             console.log('получение юзеров после api', this.store.getState());
         });
-        // this.addEventHandlers();
     }
 
     /*Строка 19 выполняеться раньше чем 11 строка, получаеться я хочу получить юзеров, которых еще не успела записать*/
@@ -19,7 +16,9 @@ class ContactPage {
         console.log('получение юзеров', this.store.getState());
         const {users} = this.store.getState();
         this.users = this.constructorUsers(users);
-        return this.renderHeader() + this.renderMain();
+        const app = document.querySelector('#app');
+        app.innerHTML = this.renderHeader() +this.renderMain();
+        this.addEventHandlers();
     }
 
     constructorUsers(users) {
@@ -94,7 +93,7 @@ class ContactPage {
 
     /* Сортировка по клику */
 
-    addEventHandlers () {
+    sortByParameterOnClick () {
         const paramsForSort = document.querySelectorAll('th');
         let tBody = document.querySelector('tbody');
 
@@ -110,6 +109,71 @@ class ContactPage {
             this.sortByParameter('email');
             tBody.innerHTML = this.renderTable()
         };
+    }
+
+
+
+    /*Поиск в приложении */
+
+    search() {
+        const search = document.querySelector('#search');
+        let tBody = document.querySelector('tbody');
+        let param = '';
+        search.onkeypress = (event) => {
+            console.log(event.keyCode);
+            if (event.which === 8 && param.length !== 0) {
+                param.slice(0, -1)
+            }
+            if (event.which === 13) {
+                param = '';
+            }
+            else {
+                param += String.fromCharCode(event.keyCode);
+            }
+            console.log(param);
+            let filterUsers = this.users.filter(user => {
+                return user.email.includes(param);
+            });
+            console.log(filterUsers);
+            tBody.innerHTML = `
+            ${filterUsers.map(user => {return`
+             <tr>
+             <td>${user.name}</td>
+             <td>${user.lastName}</td>
+             <td>${user.email}</td>
+             </tr>`
+            }).join('')}
+            `
+        };
+
+    }
+
+    /*Пепеход по клику*/
+
+    goToAnotherPage () {
+    }
+
+
+    clickThrough() {
+        let tBody = document.querySelectorAll('tr');
+        tBody.forEach(elem => {
+            elem.addEventListener( "click" , () => {
+
+            });
+        })
+    }
+
+
+    /*Подключаем все события*/
+
+
+    addEventHandlers () {
+        this.search();
+        this.sortByParameterOnClick();
+        this.clickThrough();
+
+
+
     }
 }
 
