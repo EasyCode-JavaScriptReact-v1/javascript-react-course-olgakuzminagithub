@@ -1,12 +1,20 @@
 class User {
-    constructor (globalState) {
-        this.state = globalState;
+    constructor (store) {
+        this.store = store;
     }
+
+    componentDidMount() {
+        api.getAllUsers().then(users => {
+            this.store.setState(users);
+        });
+    }
+
     render () {
         const app = document.querySelector('#app');
         app.innerHTML = this.renderHeader() +this.renderMain();
 
     }
+
     renderHeader () {
         return`<header class="header">
                     <div class="container top-radius">

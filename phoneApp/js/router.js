@@ -1,5 +1,8 @@
 class Router {
     /*Ренедеим футер*/
+    constructor (store) {
+        this.store = store;
+    }
 
     render () {
         const mountNode = document.querySelector('#mountNode');
@@ -17,6 +20,7 @@ class Router {
              </div>
          </footer>
         `
+        this.switchRouter();
     }
     /*Ренедеим ссылки в футере*/
 
@@ -27,5 +31,29 @@ class Router {
                 <span class = "tab-text">${linkProperties.content}</span>
          </a>`
 
+    }
+
+    /*Преобразуем контент в сыылке в нужный формат */
+
+    conversionActiveLink(text) {
+        return text.replace(/-/g, "").replace(/.html/, "");
+    }
+
+    /*Переключатель вкладок в футере*/
+
+    switchRouter() {
+        const links = document.querySelectorAll('.tab');
+        for (let i = 0; i < links.length; i++) {
+            let href = this.conversionActiveLink(links[i].getAttribute('href'));
+            links[i].addEventListener('click', (event) => {
+                event.preventDefault();
+                this.store.setState({activePage : href});
+                for (let j = 0; j < links.length; j ++) {
+                    if (i !== j) {
+                        links[j].classList.remove('active')
+                    }
+                }
+            })
+        }
     }
 }

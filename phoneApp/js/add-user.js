@@ -1,4 +1,14 @@
 class AddUser {
+    constructor (store) {
+        this.store = store;
+    }
+
+    componentDidMount() {
+        api.getAllUsers().then(users => {
+            this.store.setState(users);
+        });
+    }
+
     render() {
         const app = document.querySelector('#app');
         app.innerHTML = this.renderHeader() +this.renderMain();
@@ -97,6 +107,7 @@ class AddUser {
             },
             body: JSON.stringify(user)
         });
+        this.componentDidMount();
     };
 
     conversionTextContent(text) {
@@ -124,8 +135,8 @@ class AddUser {
             if (this.conversionTextContent(fields[5].textContent)!== 'email') {
                 user.email = this.conversionTextContent(fields[5].textContent)
             }
-            console.log(user);
             this.serverAddUser(user);
+            this.store.setState({activePage : 'contacts'});
         });
 
     }

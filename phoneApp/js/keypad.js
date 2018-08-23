@@ -5,9 +5,7 @@ class KeypadPage {
     componentDidMount() {
         api.getAllUsers().then(users => {
             this.store.setState(users);
-            console.log('получение юзеров после api', this.store.getState());
         });
-        // this.addEventHandlers();
     }
     render() {
         const app = document.querySelector('#app');
