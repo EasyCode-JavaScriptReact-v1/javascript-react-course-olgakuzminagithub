@@ -21,7 +21,8 @@ class App {
     createStore() {
         let state = {
             users: [],
-            activePage: 'contacts'
+            activePage: 'contacts',
+            activeId: '',
         };
 
         const getState = () => {

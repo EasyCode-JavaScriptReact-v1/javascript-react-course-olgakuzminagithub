@@ -66,7 +66,7 @@ class ContactPage {
         return `
         ${this.users.map(user => {return`
              <tr>
-             <td class = "id" style="display: none">${user.id}</td>
+             <td style="display:none">${user.id}</td>
              <td>${user.name}</td>
              <td>${user.lastName}</td>
              <td>${user.email}</td>
@@ -117,24 +117,18 @@ class ContactPage {
         const search = document.querySelector('#search');
         let tBody = document.querySelector('tbody');
         let param = '';
-        search.onkeydown = (event) => {
-            console.log(event.keyCode);
-            if (event.which === 8 && param.length !== 0) {
-                param = param.slice(0, -1);
 
-            }
+        search.onkeypress = (event) => {
             if (event.which === 13) {
                 param = '';
             }
             else {
                 param += String.fromCharCode(event.keyCode).toLowerCase();
             }
-            console.log(param);
             let filterUsers;
             filterUsers = this.users.filter(user => {
-                return user.email.includes(param);
+                return user.email.includes(param) || user.name.includes(param) || user.lastName.includes(param);
             });
-            console.log(filterUsers);
             tBody.innerHTML = `
             ${filterUsers.map(user => {return`
              <tr>
@@ -145,7 +139,24 @@ class ContactPage {
             }).join('')}
             `
         };
-
+        search.onkeydown = (event) => {
+            if (event.which === 8 && param.length !== 0) {
+                param = param.slice(0, -1);
+            }
+            let filterUsers;
+            filterUsers = this.users.filter(user => {
+                return user.email.includes(param) || user.name.includes(param) || user.lastName.includes(param);
+            });
+            tBody.innerHTML = `
+            ${filterUsers.map(user => {return`
+             <tr>
+             <td>${user.name}</td>
+             <td>${user.lastName}</td>
+             <td>${user.email}</td>
+             </tr>`
+            }).join('')}
+            `
+        }
     }
 
     /*Пепеход по клику*/
@@ -156,13 +167,13 @@ class ContactPage {
 
 
     clickThrough() {
-        let idUsers = document.querySelectorAll('tr');
-        idUsers.forEach(elem => {
-            elem.addEventListener( "click" , () => {
-
-
-            });
-        })
+        let table =  document.querySelector('tbody');
+        table.addEventListener('click', event => {
+            let target = event.target;
+            let id = target.parentNode.childNodes[1].textContent;
+            console.log(typeof id);
+            this.store.setState({activePage : 'user', activeId: id});
+        });
     }
 
 

@@ -1,6 +1,7 @@
 class EditUser {
     constructor (store) {
         this.store = store;
+        this.user = {};
     }
 
     componentDidMount() {
@@ -9,7 +10,23 @@ class EditUser {
         });
     }
 
+    constructorUser(user) {
+        let newUser = {};
+        newUser.id = user._id;
+        newUser.name = user.fullName.split(' ')[0];
+        newUser.lastName = user.fullName.split(' ')[1] ? user.fullName.split(' ')[1] : ' ';
+        newUser.email = user.email;
+        newUser.phone = user.phone;
+        return newUser;
+    }
+
     render() {
+        let store = this.store.getState();
+        store.users.forEach(user => {
+            if (user._id === store.activeId) {
+                this.user = this.constructorUser(user);
+            }
+        });
         const app = document.querySelector('#app');
         app.innerHTML = this.renderHeader() +this.renderMain();
     }
@@ -33,12 +50,12 @@ class EditUser {
                 <div class="main-info-holder">
                     <div class="edit-field">
                         <button href="#" class="add-btn"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                            <span contenteditable="true">First Name</span>
+                            <span contenteditable="true">${this.user.name}</span>
                         </button>
                     </div>
                     <div class="edit-field">
                         <button href="#" class="add-btn"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                            <span contenteditable="true">Last Name</span>
+                            <span contenteditable="true">${this.user.lastName}</span>
                         </button>
                     </div>
                     <div class="edit-field">
@@ -52,7 +69,7 @@ class EditUser {
                 <div class="edit-info">
                     <div class="edit-field">
                         <button href="#" class="delete-btn"><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>
-                            <span>phone</span>
+                            <span>${this.user.phone}</span>
                         </button>
                     </div>
                     <div class="edit-field">

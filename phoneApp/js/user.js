@@ -1,6 +1,7 @@
 class User {
     constructor (store) {
         this.store = store;
+        this.user = {};
     }
 
     componentDidMount() {
@@ -10,6 +11,12 @@ class User {
     }
 
     render () {
+        let store = this.store.getState();
+        store.users.forEach(user => {
+            if (user._id === store.activeId) {
+                this.user = user;
+            }
+        });
         const app = document.querySelector('#app');
         app.innerHTML = this.renderHeader() +this.renderMain();
 
@@ -33,7 +40,7 @@ class User {
         <main class="main">
 			<div class="container">
 				<img src="images/user-face.png" alt="#" class=" user-img img-circle center-block">
-				<div class="user-name">User Name</div>
+				<div class="user-name">${this.user.fullName}</div>
 				<div class="options-line">
 					<div class="message">
 						<div class= "options-icon"><span class="icon glyphicon glyphicon-comment" aria-hidden="true"></span></div>
@@ -54,11 +61,11 @@ class User {
 				</div>
 				<div class="tel-number">
 					<h3>mobile</h3>
-					<div> +38 (093) 989 89 89</div>
+					<div>${this.user.phone}</div>
 				</div>
 				<div class="tel-number">
-					<h3>home</h3>
-					<div> +38 (093) 989 89 89</div>
+					<h3>email</h3>
+					<div>${this.user.email}<div>
 				</div>
 				<div class="options-table">
 					<div class ="options-item"><a href="#">Notes</a></div>
