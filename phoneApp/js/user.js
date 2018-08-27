@@ -19,6 +19,7 @@ class User {
         });
         const app = document.querySelector('#app');
         app.innerHTML = this.renderHeader() +this.renderMain();
+        this.editUser();
 
     }
 
@@ -29,7 +30,7 @@ class User {
                             <a href="index.html">
                                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                                 Contacts</a>
-                            <a href="edit-contact.html">Edit</a>
+                            <a id="edit-contact-top" href="edit-contact.html">Edit</a>
                         </div>
                     </div>
                </header>`
@@ -79,4 +80,18 @@ class User {
 		</main>
         `
     }
+    editUser () {
+        const editContact = document.querySelector('#edit-contact-top');
+        const links = document.querySelectorAll('.tab');
+        const editUser = document.querySelector('.edituser');
+        editContact.addEventListener('click', (event) => {
+            event.preventDefault();
+            links.forEach(link => {
+                link.classList.remove('active')
+            });
+            editUser.classList.add('active');
+            this.store.setState({activePage : 'editcontact'});
+        })
+    }
+
 }

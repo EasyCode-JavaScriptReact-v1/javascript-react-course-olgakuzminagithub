@@ -161,17 +161,19 @@ class ContactPage {
 
     /*Пепеход по клику*/
 
-    goToAnotherPage () {
-
-    }
 
 
     clickThrough() {
+        const links = document.querySelectorAll('.tab');
+        const user = document.querySelector('.user');
         let table =  document.querySelector('tbody');
         table.addEventListener('click', event => {
             let target = event.target;
             let id = target.parentNode.childNodes[1].textContent;
-            console.log(typeof id);
+            links.forEach(link => {
+                link.classList.remove('active')
+            });
+            user.classList.add('active');
             this.store.setState({activePage : 'user', activeId: id});
         });
     }

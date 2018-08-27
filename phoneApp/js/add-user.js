@@ -136,9 +136,18 @@ class AddUser {
                 user.email = this.conversionTextContent(fields[5].textContent)
             }
             this.serverAddUser(user);
+            this.activeLink();
             this.store.setState({activePage : 'contacts'});
         });
 
+    }
+    activeLink () {
+        const links = document.querySelectorAll('.tab');
+        const contacts = document.querySelector('.contacts');
+        links.forEach(link => {
+            link.classList.remove('active')
+        });
+        contacts.classList.add('active');
     }
 
 }

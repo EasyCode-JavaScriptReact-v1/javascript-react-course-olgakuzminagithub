@@ -11,10 +11,10 @@ class Router {
         <footer class="footer">
             <div class="container bottom-radius">
                 <nav class="main-nav">
-                    ${this.renderLink({ url: 'contacts', content:'Contacts', className:'active', icon:'search'})}
+                    ${this.renderLink({ url: 'contacts', content:'Contacts', className:'active contacts', icon:'search'})}
                     ${this.renderLink({ url: 'keypad', content:'Keypad',  icon:'th'})}
-                    ${this.renderLink({ url: 'edit-contact', content:'Edit contact', icon:'pencil'})}
-                    ${this.renderLink({ url: 'user', content:'User', icon:'user'})}
+                    ${this.renderLink({ url: 'edit-contact', content:'Edit contact', className:'edituser', icon:'pencil'})}
+                    ${this.renderLink({ url: 'user', content:'User', className: 'user', icon:'user'})}
                     ${this.renderLink({ url: 'add-user', content:'Add user', icon:'plus'})}
                  </nav>
              </div>
